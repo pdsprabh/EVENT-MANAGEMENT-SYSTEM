@@ -22,31 +22,55 @@ public class FrontPage {
         headerPanel.add(headerLabel, BorderLayout.CENTER);
         backgroundPanel.add(headerPanel, BorderLayout.NORTH);
 
-        // Main Content Panel (set to transparent so the background image is visible)
-        JPanel contentPanel = new JPanel();
-        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
-        contentPanel.setOpaque(false); // Make the panel transparent
+        // Main Content Panel using GridBagLayout to center content both vertically and horizontally
+        JPanel contentPanel = new JPanel(new GridBagLayout());
+        contentPanel.setOpaque(false); // Transparent panel so the background image shows through
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.weightx = 1.0;
+        
+        // Top spacer panel to push components toward the center vertically
+        gbc.gridy = 0;
+        gbc.weighty = 1.0;
+        JPanel topSpacer = new JPanel();
+        topSpacer.setOpaque(false);
+        contentPanel.add(topSpacer, gbc);
 
+        // Title Label
         JLabel titleLabel = new JLabel("Transforming Ideas into Flawless Events", SwingConstants.CENTER);
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 30));
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        // Make title label opaque with a solid black background
         titleLabel.setOpaque(true);
         titleLabel.setBackground(Color.BLACK);
+        gbc.gridy = 1;
+        gbc.weighty = 0;
+        contentPanel.add(titleLabel, gbc);
 
+        // Tagline Label
         JLabel taglineLabel = new JLabel("Seamless Events, Unforgettable Moments!", SwingConstants.CENTER);
         taglineLabel.setForeground(Color.WHITE);
         taglineLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-        taglineLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        // Make tagline label opaque with a solid black background
         taglineLabel.setOpaque(true);
         taglineLabel.setBackground(Color.BLACK);
+        gbc.gridy = 2;
+        contentPanel.add(taglineLabel, gbc);
 
+        // Get Started Button
         JButton getStartedButton = new JButton("Get Started");
         getStartedButton.setFont(new Font("Arial", Font.BOLD, 18));
         getStartedButton.setBackground(Color.YELLOW);
-        getStartedButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        gbc.gridy = 3;
+        contentPanel.add(getStartedButton, gbc);
+
+        // Bottom spacer panel to push components toward the center vertically
+        gbc.gridy = 4;
+        gbc.weighty = 1.0;
+        JPanel bottomSpacer = new JPanel();
+        bottomSpacer.setOpaque(false);
+        contentPanel.add(bottomSpacer, gbc);
 
         // MouseListener for hover effect on the button
         getStartedButton.addMouseListener(new MouseAdapter() {
@@ -69,14 +93,6 @@ public class FrontPage {
                 new LoginPage(); // Open login page (ensure LoginPage class is defined)
             }
         });
-
-        // Add components to the content panel with spacing
-        contentPanel.add(Box.createVerticalStrut(100));
-        contentPanel.add(titleLabel);
-        contentPanel.add(Box.createVerticalStrut(10));
-        contentPanel.add(taglineLabel);
-        contentPanel.add(Box.createVerticalStrut(20));
-        contentPanel.add(getStartedButton);
 
         backgroundPanel.add(contentPanel, BorderLayout.CENTER);
 
